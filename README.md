@@ -15,8 +15,20 @@ A labor elvégzéséhez szükséges eszközök:
   - Az egyszerűbb megoldás a beágyazott hsqldb használata. Ennek lényege, hogy ha az alkalmazást a megfelelő (és by default aktív) Spring profile-lal futtatjuk, akkor az alkalmazással egy processzben létrejön az adatbázis is, és egyből mintaadatokat is beleszúrunk. Az SQL Server telepítése teljesen kihagyható ebben az esetben.
   - A másik lehetőség a Microsoft SQL Server Express használata (localdb nem alkalmas). Ebben az esetben a projekt application.properties fájljában lévő spring.profiles.active=hsql sort törölni kell, vagy kommentbe tenni
     - A telepítő innen tölthető le: https://www.microsoft.com/en-us/download/details.aspx?id=55994
-      - Telepítés után az SQL Server by default nem fog TCP porton figyelni. A JDBC driver viszont csak TCP porton keresztül tud csatlakozni hozzá, ezért ezt be kell állítanunk:
     - Szintén szükség lesz az SQL Server Management Studio-ra: https://aka.ms/ssmsfullsetup
+    - Telepítés után az SQL Server by default nem fog TCP porton figyelni. A JDBC driver viszont csak TCP porton keresztül tud csatlakozni hozzá, ezért ezt be kell állítanunk:
+      - Engedélyezni kell a TCP/IP kapcsolatot, a "mixed mode" authentikációt és az "sa" usert
+      - Képek a beállításokról: https://1drv.ms/w/s!ApHUeZ7ao_2ThuZgTdcGJeHjncRB7Q?e=YIb13k 
+      - SQL Server Configuration Manager-ben:
+        - "Protocols for SQL Express" alatt TCP/IP
+        - Első tabon: enabled=yes
+        - Második tabon legalul: "IPAll" alatt "TCP Port" 1433
+      - SQL Server Management Studio-ban
+        - Server tulajdonságok alatt Security / "Sql Server and Windows Authentication mode"
+        - Security/Logins/sa user tulajdonságai alatt
+          - Jelszó: bármi, de jegyezd meg
+          - NE legyen bepipálva az "Enforce password policy"
+          - Status fül alatt: login: enabled
     - Szükség lesz az adatbázis létrehozó scriptre: [mssql.sql](https://raw.githubusercontent.com/BMEVIAUBB04/gyakorlat-mssql/master/mssql.sql)
 
 ## Amit érdemes átnézned

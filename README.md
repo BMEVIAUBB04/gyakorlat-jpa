@@ -8,13 +8,16 @@ A gyakorlat célja, hogy a hallgatók megismerjék a JPA és a Spring Data haszn
 
 A labor elvégzéséhez szükséges eszközök:
 
-- Eclipse for Java EE
-- Microsoft SQL Server Express edition (localdb nem alkalmas)
-- SQL Server Management Studio
-- Adatbázis létrehozó script: [mssql.sql](https://raw.githubusercontent.com/bmeviauac01/gyakorlatok/master/mssql.sql)
-- Kiinduló webalkalmazás kódja: <https://github.com/bmeviauac01/gyakorlat-jpa-kiindulas>
-- Az MSSQL JDBC driver letöltése innen: <https://www.aut.bme.hu/Upload/Course/adatvezerelt/gyakorlat_anyagok/mssql-jdbc.zip>
-  - A zipet csomagold ki ide: `c:\work\javaee\.m2\repository` (a zip egy _com_ nevű könyvtárat tartalmaz, az elvárt végeredmény egy ilyen könyvtárstruktúra: `c:\work\javaee\.m2\repository\com\microsoft\...`)
+- A kiinduló alkalmazás kódja: https://github.com/BMEVIAUBB04/gyakorlat-jpa
+- Legalább 11-es JDK, pl. OpenJDK: http://jdk.java.net/
+- Tetszőleges Java alapú, Mavennel integrálódó IDE. A gyakorlatothoz kapcsolódó videón a Spring Tools 4 for Eclipse-et használjuk: https://spring.io/tools
+- A gyakorlat otthoni megoldása során szabadon választható az adatbázis
+  - Az egyszerűbb megoldás a beágyazott hsqldb használata. Ennek lényege, hogy ha az alkalmazást a megfelelő (és by default aktív) Spring profile-lal futtatjuk, akkor az alkalmazással egy processzben létrejön az adatbázis is, és egyből mintaadatokat is beleszúrunk. Az SQL Server telepítése teljesen kihagyható ebben az esetben.
+  - A másik lehetőség a Microsoft SQL Server Express használata (localdb nem alkalmas). Ebben az esetben a projekt application.properties fájljában lévő spring.profiles.active=hsql sort törölni kell, vagy kommentbe tenni
+    - A telepítő innen tölthető le: https://www.microsoft.com/en-us/download/details.aspx?id=55994
+      - Telepítés után az SQL Server by default nem fog TCP porton figyelni. A JDBC driver viszont csak TCP porton keresztül tud csatlakozni hozzá, ezért ezt be kell állítanunk:
+    - Szintén szükség lesz az SQL Server Management Studio-ra: https://aka.ms/ssmsfullsetup
+    - Szükség lesz az adatbázis létrehozó scriptre: [mssql.sql](https://raw.githubusercontent.com/BMEVIAUBB04/gyakorlat-mssql/master/mssql.sql)
 
 ## Amit érdemes átnézned
 
@@ -23,7 +26,7 @@ A labor elvégzéséhez szükséges eszközök:
 
 ## Gyakorlat menete
 
-A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. Egy-egy részfeladatot próbáljunk meg először önállóan megoldani, utána beszéljük meg a megoldást közösen. Az utolsó feladat opcionális, ha belefér az időbe.
+A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. Bizonyos feladatoknál több megoldási lehetőséget is említ ez az útmutató, de a gyakorlatvezető nem mindegyiket mutatja be. Érdemes ezeket is kipróbálni önálló gyakorlásként. A taanszéki portálra töltsd fel a megoldás projektet zippelve. (A target mappát kivéve, azt töröld.)
 
 Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb azonban próbáljuk magunk megoldani a feladatot!
 
@@ -40,18 +43,18 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
   - Window menü / Preferences, ott elkezdjük gépelni, hogy _font_, így megtalálja azt a beállítást, hogy Fonts and Colors
   - Azt kiválasztva, a Basic kategória alatt kell a Text Fontot kijelölni, és a méretét pl. 18-asra állítani
 
-## Feladat 0: Adatbázis létrehozása
+## Feladat 0: Adatbázis létrehozása (csak MSSQL választása esetén)
 
 1. Csatlakozzunk _Microsoft SQL Server Management Studio_-val a a szerverhez. Ezúttal nem _localdb_-t használunk, a szerver címe: `localhost\sqlexpress`. A bejelentkezéshez _SQL Server Authentication_ módot válasszuk.
 
-1. Hozzunk létre egy `adatvez` nevű adatbázist (ügyeljünk a névre, különben a Java projektben módosítanunk kell). Az adatbázis létrehozásának mikéntjét lásd az első gyakorlat anyagában. Ha a gépen már létezik az adatbázis, akkor nem kell újat létrehozni.
+1. Hozzunk létre egy `hatteralk` nevű adatbázist (ügyeljünk a névre, különben a Java projektben módosítanunk kell). Az adatbázis létrehozásának mikéntjét lásd az első gyakorlat anyagában. Ha a gépen már létezik az adatbázis, akkor nem kell újat létrehozni.
 
 1. Futtassuk le az adatbázis inicializáló sql szkriptet az adatbázisban. Akkor is futtassuk le a szkriptet, ha már létezne az adatbázis (hogy a kezdeti állapotot visszakapjuk.)
 
 ## Feladat 1: Eclipse indítása
 
-1. Indítsuk el az Eclipse-et innen: `C:\Work\javaee\eclipse\eclipse.exe`. (Fontos, hogy lehet egy `D:\eclipse` mappa is, nekünk _nem_ az kell.)
-1. Indításkor megkérdezi, hova akarunk dolgozni (workspace), itt válasszuk ezt: `C:\Work\javaee\workspaces\adatvez`
+1. Indítsuk el az Eclipse-et innen: `C:\Work\javaee\eclipse\eclipse.exe`. (Fontos, hogy lehet egy `D:\eclipse` mappa is, nekünk _nem_ az kell.) Otthoni megoldás esetén természetesen a saját IDE-t indítsd el.
+1. Indításkor megkérdezi, hova akarunk dolgozni (workspace), itt a laborbeli megoldás esetében válasszuk ezt: `C:\Work\javaee\workspaces\hatteralk`
 1. Ha az indulás után a Project Explorer-ben ott van egy korábbi gyakorlatról a **webshop** nevű projekt, azt töröljük ki: a projekten jobb klikk / _Delete_, amikor rákérdez, pipáljuk be, hogy a fájlrendszerről is törlődjön.
 
 ## Feladat 2: Projekt importálása
@@ -59,7 +62,7 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
 1. Töltsük le a méréshez tartozó projekt vázat!
    - Nyissunk egy _command prompt_-ot
    - Navigáljunk el egy tetszőleges mappába, például `c/d:\work\NEPTUN`
-   - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/bmeviauac01/gyakorlat-jpa-kiindulas.git`
+   - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/BMEVIAUBB04/gyakorlat-jpa.git`
 1. Importáljuk a letöltött forráskódot a workspace-be:
    - Nyissuk meg a _File / Import..._-ot
    - Kezdjük el gépelni a textboxba, hogy _Existing projects into workspace_, így rá fog szűrni és válasszuk ki ezt
@@ -67,13 +70,11 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
    - Finish
 1. Tekintsük át röviden a projektet:
 
-   - Ez egy _maven_ alapú projekt. A maven parancssori build eszköz, ami IDE-khez is illeszthető. Fontos tulajdonsága, hogy képes a szükséges library függőségeket online repository-kból letölteni. Ha megnyitjuk a projekt gyökerében `pom.xml`-t, a maven konfig fájlját, dependency tagekben függőségeket látunk, amik (tranzitív módon) behúzzák a _Hibernate_-et mint JPA implementációt, a _Spring Boot_-ot, a _Spring Data_-t és a webréteghez szükséges _Spring MVC_-t és _Thymeleaf_-et. A laborban a maven offline működésre van konfigurálva, és előre le van töltve az összes függőség, így megelőzzük az esetleges hálózati problémákat.
+   - Ez egy _maven_ alapú projekt. A maven parancssori build eszköz, ami IDE-khez is illeszthető. Fontos tulajdonsága, hogy képes a szükséges library függőségeket online repository-kból letölteni. Ha megnyitjuk a projekt gyökerében `pom.xml`-t, a maven konfig fájlját, dependency tagekben függőségeket látunk, amik (tranzitív módon) behúzzák a _Hibernate_-et mint JPA implementációt, a _Spring Boot_-ot, a _Spring Data_-t és a webréteghez szükséges _Spring MVC_-t és _Thymeleaf_-et. A laborban a maven offline működésre van konfigurálva, és előre le van töltve az összes függőség, így megelőzzük az esetleges hálózati problémákat. Otthon az import után eltarthat egy ideig, amíg minden függőség letöltődik.
 
-   - Az _application.properties_-ben van pár alapvető beállítás, itt a DB eléréshez **ellenőrizzük a usernevet és jelszót**. Figyeljük meg az adatbázis JNDI nevének beállításához ezt a sort: `spring.datasource.jndi-name=jdbc/termekDB`. Klasszikus Java EE alkalmazásban ezt a `persistence.xml`-be írnánk be, de a Spring Boot XML nélküli konfigurációt is támogat, itt ezt használjuk ki. (Egy apróság: a projektben mégis van `persistence.xml`, ezt igényli az Eclipse-es JPA plugin, aminek köszönhetően pl. kódkiegészítés működik a NamedQuery-kben. Viszont, mivel igazából nem használja az alkalmazásunk futás közben, üres a persistence.xml.)
+   - Az _application.properties_-ben van pár alapvető beállítás, itt a DB eléréshez **ellenőrizzük az adatbázis URL-t, usernevet és jelszót**, ha MSSQL-t szeretnénk használni. Szintén ebben az esetben kapcsoljuk ki a hsql profile-t aktiváló sort. Ha ezt ugyanis bent hagyjuk, az application-hsql.properties-ben lévő üres datasource property-k fognak érvényre jutni, amely esetben a Spring Boot by default egy beágyazott adatbázist fog használni. (Hsqldb helyett H2 vagy Derby is használható lenne.)
 
-   - A `ConnectionProperties` az előző konfig fájl egy részének Java-beli reprezentációja
-
-   - A `WebshopApplication` a Spring Boot alkalmazás belépési pontja és konfigja is. Egy hagyományos webalkalmazást egy külön processzben futó webkonténerre (pl. Tomcat, Jetty) kellene telepíteni. Spring Boot-os fejlesztés esetében viszont maga a Spring Boot fog elindítani egy beágyazott webkonténert (alapértelmezésben Tomcat-et). A `tomcatFactory` metódusban regisztráljuk be az SQL Server JDBC driverét jdbc/termekDB JNDI néven, hogy a JPA majd megtalálja. Ha nem adatvez az adatbázisunk neve, akkor a JDBC URL-t módosítani kell a megfelelő sornál: resource.setProperty("url", "jdbc:sqlserver://localhost;database=**adatvez**");
+   - A `WebshopApplication` a Spring Boot alkalmazás belépési pontja és konfigja is. Egy hagyományos webalkalmazást egy külön processzben futó webkonténerre (pl. Tomcat, Jetty) kellene telepíteni. Spring Boot-os fejlesztés esetében viszont maga a Spring Boot fog elindítani egy beágyazott webkonténert (alapértelmezésben Tomcat-et). 
 
    - A webes felület egyetlen oldal, az `src\main\resources\templates\testPage.html`. Ebbe nem fogunk majd belenyúlni. Standard html + Thymeleaf-es attribútumok látahtóak benne.
 
@@ -81,7 +82,7 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
 
 ## Feladat 3: Entitások áttekintése
 
-- Az entitások már előre készen a `hu.bme.aut.adatvez.webshop.model` package-ben találhatók. Ezeket általában vagy kézzel írjuk meg, vagy generáljuk a DB táblákból pl. az Eclipse-es JPA plugin segítségével.
+- Az entitások már előre készen a `hu.bme.aut.hatteralk.webshop.model` package-ben találhatók. Ezeket általában vagy kézzel írjuk meg, vagy generáljuk a DB táblákból pl. az Eclipse-es JPA plugin segítségével.
 
 - Az entitások közül nyissunk meg egyet, pl. `Afa`, látszik benne a `@Entity`, a `@Id` annotáció, illetve a kapcsolatok definiálására `@OneToMany` vagy `@ManyToOne`
 
@@ -104,7 +105,7 @@ Futás közben a Console nézetben látszódnak a Hibernate által generált SQL
 
 ### Futtatás
 
-A projektben megtalálható (a legalsó fájl a Project Explorerben) a **webshop run.launch** nevű konfig fájl. Ezen jobb klikk / _Debug As / webshop run_. Ez debug módban indítja a Spring Boot maven plugin-t, aminek hatására a beágyazott webkonténer elindul, és böngészőből a <http://localhost:9080> URL-en elérhető az alkalmazás. Ha ezt egyszer jobb klikkel megcsináltuk, akkor később a toolbar Debug ikonját lenyitva is megtehetjük:
+A projektben megtalálható (a legalsó fájl a Project Explorerben) a **webshop run.launch** nevű konfig fájl. Ezen jobb klikk / _Debug As / webshop run_. Ez debug módban indítja a Spring Boot maven plugin-t, aminek hatására a beágyazott webkonténer elindul, és böngészőből a <http://localhost:9080> URL-en elérhető az alkalmazás. (Az application.properties definiálja ezt a portot a default 8080 helyett, mert a laborban előfordult port ütközés más szoftverrel.) Ha ezt egyszer jobb klikkel megcsináltuk, akkor később a toolbar Debug ikonját lenyitva is megtehetjük:
 
 ![Eclipse futtatás](images/eclipse-run.png)
 
@@ -132,11 +133,11 @@ Röviden: a metódus törzsön belüli változásokon kívül mindig újraindít
 Nyissuk meg a `dao` package-ben lévő `TermekRepository` interfészt, amely a Spring Data-s `JpaRepository`-ból származik (és az egyelőre üres `TermekRepositoryCustom`-ból). Találunk benne későbbi feladathoz kapcsolódó metódusokat, azokat csak figyeljük meg. Valamelyik `@Query` annotációval definiálja a futtatandó lekérdezést, valamelyiknél az is hiányzik. Nekünk sem lesz szükség `@Query` annotációra, mert a metódus neve alapján a Spring Data képes kitalálni a query-t. Tegyük tehát bele ezt az új metódust:
 
 ```java
-package hu.bme.aut.adatvez.webshop.dao;
+package hu.bme.aut.hatteralk.webshop.dao;
 
 import java.math.BigDecimal;
 import java.util.List;
-import hu.bme.aut.adatvez.webshop.model.Termek;
+import hu.bme.aut.hatteralk.webshop.model.Termek;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TermekRepository extends JpaRepository<Termek, Long>, TermekRepositoryCustom {
@@ -167,9 +168,9 @@ public class WebshopController {
 A `dao` package-ben lévő `TermekRepositoryCustom` interfészbe vegyük fel egy `findLegalabbKetszerRendeltTermekek` nevű metódust:
 
 ```java
-package hu.bme.aut.adatvez.webshop.dao;
+package hu.bme.aut.hatteralk.webshop.dao;
 
-import hu.bme.aut.adatvez.webshop.model.Termek;
+import hu.bme.aut.hatteralk.webshop.model.Termek;
 import java.util.List;
 
 public interface TermekRepositoryCustom {
@@ -184,9 +185,9 @@ A dao package-ben lévő `TermekRepositoryImpl` osztály hibás lesz emiatt, mer
 Utána a törzsbe írhatjuk az implementációt, melynek lényege: injektált EntityManager-rel hozzuk létre és futtatjuk le a query-t. (Most látszik igazán, hogy az előző, Spring Data-s megoldás mennyi boilerplate kódot spórolt meg nekünk.)
 
 ```java
-package hu.bme.aut.adatvez.webshop.dao;
+package hu.bme.aut.hatteralk.webshop.dao;
 
-import hu.bme.aut.adatvez.webshop.model.Termek;
+import hu.bme.aut.hatteralk.webshop.model.Termek;
 
 import java.util.List;
 
@@ -403,7 +404,7 @@ public class KategoriaService {
 
 Hívd meg a JPA-ból a _FizetesModLetrehozasa_ nevű tárolt eljárást, mely új fizetési mód rögzítésére szolgál, és visszaadja az új rekord azonosítóját!
 
-- Az SQL Server Management Studioban ellenőrizzük, hogy az adatbázis tartalmazza-e a _FizetesModLetrehozasa_ nevű tárolt eljárást!
+- SQL Server használata esetén az SQL Server Management Studioban ellenőrizzük, hogy az adatbázis tartalmazza-e a _FizetesModLetrehozasa_ nevű tárolt eljárást!
 
 - Ha nem, akkor nyisd meg a projekt gyökerében található CreateSP.sql nevű fájlt, és a tartalmát futtasd le a Management Studioban!
 
@@ -416,8 +417,8 @@ A `FizetesMod` entitáson megtaláljuk az alábbi annotációt. Vessük össze a
 	@NamedStoredProcedureQuery(name = "fizModSP",
 			procedureName = "FizetesModLetrehozasa",
 			parameters = {
-	        	@StoredProcedureParameter(mode = ParameterMode.IN, name = "Mod", type = String.class),
-	        	@StoredProcedureParameter(mode = ParameterMode.IN, name = "Hatarido", type = BigDecimal.class)
+	        	@StoredProcedureParameter(mode = ParameterMode.IN, name = "fmod", type = String.class),
+	        	@StoredProcedureParameter(mode = ParameterMode.IN, name = "hatarido", type = BigDecimal.class)
 	        })
 })
 public class Fizetesmod implements Serializable {
@@ -430,7 +431,7 @@ A named stored procedure query meghívható Spring Data repositoryból (`dao` pa
 public interface FizetesmodRepository extends JpaRepository<Fizetesmod, Long> {
 
   @Procedure(name="fizModSP")
-  void ujFizetesmod(@Param("Mod") String nev, @Param("Hatarido") BigDecimal hatarido);
+  void ujFizetesmod(@Param("fmod") String nev, @Param("hatarido") BigDecimal hatarido);
 }
 ```
 
@@ -445,8 +446,8 @@ public class FizetesmodService {
 
   public void createUjFizetesMod(Fizetesmod fizetesMod){
     StoredProcedureQuery sp = em.createNamedStoredProcedureQuery("fizModSP");
-    sp.setParameter("Mod", fizetesMod.getMod());
-    sp.setParameter("Hatarido", fizetesMod.getHatarido());
+    sp.setParameter("fmod", fizetesMod.getMod());
+    sp.setParameter("hatarido", fizetesMod.getHatarido());
     sp.execute();
   }
 }

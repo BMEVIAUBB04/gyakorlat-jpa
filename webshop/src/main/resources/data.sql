@@ -14,7 +14,7 @@ insert into Kategoria (id, nev, szulokategoria) values (9,'6-18 hónapos kor',3)
 insert into Kategoria (id, nev, szulokategoria) values (10,'18-24 hónapos kor',3);
 insert into Kategoria (id, nev, szulokategoria) values (11,'DUPLO',4);
 insert into Kategoria (id, nev, szulokategoria) values (13,'LEGO',4);
-insert into Kategoria (id, nev, szulokategoria) values (14,'Építő elemek',4);
+insert into Kategoria (id, nev, szulokategoria) values (14,'Építo elemek',4);
 insert into Kategoria (id, nev, szulokategoria) values (15,'Építő kockák',5);
 insert into Kategoria (id, nev, szulokategoria) values (16,'Készségfejlesztő játékok',5);
 insert into Kategoria (id, nev, szulokategoria) values (17,'Logikai játékok',5);

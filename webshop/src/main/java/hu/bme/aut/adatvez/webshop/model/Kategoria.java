@@ -2,7 +2,7 @@ package hu.bme.aut.adatvez.webshop.model;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;

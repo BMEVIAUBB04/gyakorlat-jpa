@@ -9,11 +9,11 @@ A gyakorlat célja, hogy a hallgatók megismerjék a JPA és a Spring Data haszn
 A labor elvégzéséhez szükséges eszközök:
 
 - A kiinduló alkalmazás kódja: https://github.com/BMEVIAUBB04/gyakorlat-jpa
-- Legalább 11-es JDK, pl. OpenJDK: http://jdk.java.net/
+- Legalább 17-es JDK, pl. OpenJDK: https://adoptium.net/
 - Tetszőleges Java alapú, Mavennel integrálódó IDE. A gyakorlatothoz kapcsolódó videón a Spring Tools 4 for Eclipse-et használjuk: https://spring.io/tools
 - A gyakorlat otthoni megoldása során szabadon választható az adatbázis
-  - Az egyszerűbb megoldás a beágyazott hsqldb használata. Ennek lényege, hogy ha az alkalmazást a megfelelő (és by default aktív) Spring profile-lal futtatjuk, akkor az alkalmazással egy processzben létrejön az adatbázis is, és egyből mintaadatokat is beleszúrunk. Az SQL Server telepítése teljesen kihagyható ebben az esetben.
-  - A másik lehetőség a Microsoft SQL Server Express használata (localdb nem alkalmas). Ebben az esetben a projekt application.properties fájljában lévő spring.profiles.active=hsql sort törölni kell, vagy kommentbe tenni
+  - Az egyszerűbb megoldás a beágyazott hsqldb használata. Ennek lényege, hogy ha az alkalmazást a megfelelő Spring profile-lal futtatjuk (az application.properties fájlban töröljük a komment jelet a spring.profiles.active=hsql sor elején), akkor az alkalmazással egy processzben létrejön az adatbázis is, és egyből mintaadatokat is beleszúrunk. Az SQL Server telepítése teljesen kihagyható ebben az esetben.
+  - A másik lehetőség a Microsoft SQL Server Express használata (localdb nem alkalmas). Ebben az esetben a projekt application.properties fájljában lévő spring.profiles.active=hsql sort törölni kell, vagy kommentbe tenni (by default kommentben van)
     - A telepítő innen tölthető le: https://www.microsoft.com/en-us/download/details.aspx?id=55994
     - Szintén szükség lesz az SQL Server Management Studio-ra: https://aka.ms/ssmsfullsetup
     - Telepítés után az SQL Server by default nem fog TCP porton figyelni. A JDBC driver viszont csak TCP porton keresztül tud csatlakozni hozzá, ezért ezt be kell állítanunk:
@@ -65,15 +65,15 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
 
 ## Feladat 1: Eclipse indítása
 
-1. Indítsuk el az Eclipse-et innen: `C:\Work\javaee\eclipse\eclipse.exe`. (Fontos, hogy lehet egy `D:\eclipse` mappa is, nekünk _nem_ az kell.) Otthoni megoldás esetén természetesen a saját IDE-t indítsd el.
-1. Indításkor megkérdezi, hova akarunk dolgozni (workspace), itt a laborbeli megoldás esetében válasszuk ezt: `C:\Work\javaee\workspaces\hatteralk`
+1. Indítsuk el az Eclipse-et innen: `C:\Tools\Hatteralkalmazasok\eclipse\SpringToolSuite4.exe`. (Fontos, hogy lehet egy `D:\eclipse` mappa is, nekünk _nem_ az kell.) Otthoni megoldás esetén természetesen a saját IDE-t indítsd el.
+1. Indításkor megkérdezi, hova akarunk dolgozni (workspace), itt a laborbeli megoldás esetében válasszuk ezt: `C:\Tools\Hatteralkalmazasok\workspace`
 1. Ha az indulás után a Project Explorer-ben ott van egy korábbi gyakorlatról a **webshop** nevű projekt, azt töröljük ki: a projekten jobb klikk / _Delete_, amikor rákérdez, pipáljuk be, hogy a fájlrendszerről is törlődjön.
 
 ## Feladat 2: Projekt importálása
 
 1. Töltsük le a méréshez tartozó projekt vázat!
    - Nyissunk egy _command prompt_-ot
-   - Navigáljunk el egy tetszőleges mappába, például `c/d:\work\NEPTUN`
+   - Navigáljunk el egy tetszőleges mappába, például `c:\work\NEPTUN`
    - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/BMEVIAUBB04/gyakorlat-jpa.git`
 1. Importáljuk a letöltött forráskódot a workspace-be:
    - Nyissuk meg a _File / Import..._-ot
@@ -203,8 +203,8 @@ import hu.bme.aut.hatteralk.webshop.model.Termek;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 public class TermekRepositoryImpl implements TermekRepositoryCustom {
 
@@ -313,7 +313,7 @@ Meghívása a `WebshopController`-ből:
         RequestMethod.POST, RequestMethod.GET })
 private String epitoElemekDragit() {
   // TODO
-  termekRepository.kategoriaDragit("Építő elemek");
+  termekRepository.kategoriaDragit("Építo elemek");
   return "redirect:/";
 }
 ```

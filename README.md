@@ -65,7 +65,7 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
 
 ## Feladat 1: Eclipse indítása
 
-1. Indítsuk el az Eclipse-et innen: `C:\Tools\Hatteralkalmazasok\eclipse\SpringToolSuite4.exe`. (Fontos, hogy lehet egy `D:\eclipse` mappa is, nekünk _nem_ az kell.) Otthoni megoldás esetén természetesen a saját IDE-t indítsd el.
+1. Indítsuk el az Eclipse-et innen: `C:\Tools\Hatteralkalmazasok\eclipse\SpringToolsForEclipse.exe`. (Fontos, hogy lehet egy `D:\eclipse` mappa is, nekünk _nem_ az kell.) Otthoni megoldás esetén természetesen a saját IDE-t indítsd el.
 1. Indításkor megkérdezi, hova akarunk dolgozni (workspace), itt a laborbeli megoldás esetében válasszuk ezt: `C:\Tools\Hatteralkalmazasok\workspace`
 1. Ha az indulás után a Project Explorer-ben ott van egy korábbi gyakorlatról a **webshop** nevű projekt, azt töröljük ki: a projekten jobb klikk / _Delete_, amikor rákérdez, pipáljuk be, hogy a fájlrendszerről is törlődjön.
 

@@ -1,10 +1,18 @@
 package hu.bme.aut.adatvez.webshop.model;
 
 import java.io.Serializable;
-import jakarta.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 
 
 /**
@@ -20,13 +28,11 @@ public class Szamla implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 
-	@Temporal(TemporalType.DATE)
-	private Date fizetesihatarido;
+	private LocalDate fizetesihatarido;
 
 	private String fizetesimod;
 
-	@Temporal(TemporalType.DATE)
-	private Date kiallitasdatum;
+	private LocalDate kiallitasdatum;
 
 	private String megrendeloir;
 
@@ -40,8 +46,7 @@ public class Szamla implements Serializable {
 
 	private String sztorno;
 
-	@Temporal(TemporalType.DATE)
-	private Date teljesitesdatum;
+	private LocalDate teljesitesdatum;
 
 	//bi-directional many-to-one association to Szamlakiallito
 	@ManyToOne
@@ -68,11 +73,11 @@ public class Szamla implements Serializable {
 		this.id = id;
 	}
 
-	public Date getFizetesihatarido() {
+	public LocalDate getFizetesihatarido() {
 		return this.fizetesihatarido;
 	}
 
-	public void setFizetesihatarido(Date fizetesihatarido) {
+	public void setFizetesihatarido(LocalDate fizetesihatarido) {
 		this.fizetesihatarido = fizetesihatarido;
 	}
 
@@ -84,11 +89,11 @@ public class Szamla implements Serializable {
 		this.fizetesimod = fizetesimod;
 	}
 
-	public Date getKiallitasdatum() {
+	public LocalDate getKiallitasdatum() {
 		return this.kiallitasdatum;
 	}
 
-	public void setKiallitasdatum(Date kiallitasdatum) {
+	public void setKiallitasdatum(LocalDate kiallitasdatum) {
 		this.kiallitasdatum = kiallitasdatum;
 	}
 
@@ -140,11 +145,11 @@ public class Szamla implements Serializable {
 		this.sztorno = sztorno;
 	}
 
-	public Date getTeljesitesdatum() {
+	public LocalDate getTeljesitesdatum() {
 		return this.teljesitesdatum;
 	}
 
-	public void setTeljesitesdatum(Date teljesitesdatum) {
+	public void setTeljesitesdatum(LocalDate teljesitesdatum) {
 		this.teljesitesdatum = teljesitesdatum;
 	}
 

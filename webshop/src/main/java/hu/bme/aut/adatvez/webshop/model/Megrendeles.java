@@ -1,9 +1,17 @@
 package hu.bme.aut.adatvez.webshop.model;
 
 import java.io.Serializable;
-import jakarta.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 
 
 /**
@@ -19,11 +27,9 @@ public class Megrendeles implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 
-	@Temporal(TemporalType.DATE)
-	private Date datum;
+	private LocalDate datum;
 
-	@Temporal(TemporalType.DATE)
-	private Date hatarido;
+	private LocalDate hatarido;
 
 	//bi-directional many-to-one association to Telephely
 	@ManyToOne
@@ -59,19 +65,19 @@ public class Megrendeles implements Serializable {
 		this.id = id;
 	}
 
-	public Date getDatum() {
+	public LocalDate getDatum() {
 		return this.datum;
 	}
 
-	public void setDatum(Date datum) {
+	public void setDatum(LocalDate datum) {
 		this.datum = datum;
 	}
 
-	public Date getHatarido() {
+	public LocalDate getHatarido() {
 		return this.hatarido;
 	}
 
-	public void setHatarido(Date hatarido) {
+	public void setHatarido(LocalDate hatarido) {
 		this.hatarido = hatarido;
 	}
 

@@ -9,7 +9,7 @@ A gyakorlat célja, hogy a hallgatók megismerjék a JPA és a Spring Data haszn
 A labor elvégzéséhez szükséges eszközök:
 
 - A kiinduló alkalmazás kódja: https://github.com/BMEVIAUBB04/gyakorlat-jpa
-- Legalább 17-es JDK, pl. OpenJDK: https://adoptium.net/
+- Legalább 25-ös JDK, pl. OpenJDK: https://adoptium.net/
 - Tetszőleges Java alapú, Mavennel integrálódó IDE. A gyakorlatothoz kapcsolódó videón a Spring Tools 4 for Eclipse-et használjuk: https://spring.io/tools
 - A gyakorlat otthoni megoldása során szabadon választható az adatbázis
   - Az egyszerűbb megoldás a beágyazott hsqldb használata. Ennek lényege, hogy ha az alkalmazást a megfelelő Spring profile-lal futtatjuk (az application.properties fájlban töröljük a komment jelet a spring.profiles.active=hsql sor elején), akkor az alkalmazással egy processzben létrejön az adatbázis is, és egyből mintaadatokat is beleszúrunk. Az SQL Server telepítése teljesen kihagyható ebben az esetben.
@@ -38,7 +38,7 @@ A labor elvégzéséhez szükséges eszközök:
 
 ## Gyakorlat menete
 
-A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. Bizonyos feladatoknál több megoldási lehetőséget is említ ez az útmutató, de a gyakorlatvezető nem mindegyiket mutatja be. Érdemes ezeket is kipróbálni önálló gyakorlásként. A taanszéki portálra töltsd fel a megoldás projektet zippelve. (A target mappát kivéve, azt töröld.)
+A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. Bizonyos feladatoknál több megoldási lehetőséget is említ ez az útmutató, de a gyakorlatvezető nem mindegyiket mutatja be. Érdemes ezeket is kipróbálni önálló gyakorlásként. A projekt kódját kell commitolnod a megoldásnak létrehozott branchbe, amit a laborvezetőhöz rendelsz. (Lásd a részleteket a Gyakorlatok általános leírásánál.)
 
 Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb azonban próbáljuk magunk megoldani a feladatot!
 
@@ -71,14 +71,10 @@ Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb
 
 ## Feladat 2: Projekt importálása
 
-1. Töltsük le a méréshez tartozó projekt vázat!
-   - Nyissunk egy _command prompt_-ot
-   - Navigáljunk el egy tetszőleges mappába, például `c:\work\NEPTUN`
-   - Adjuk ki a következő parancsot: `git clone --depth 1 https://github.com/BMEVIAUBB04/gyakorlat-jpa.git`
-1. Importáljuk a letöltött forráskódot a workspace-be:
+1. Importáljuk a classroom feladatban található forráskódot a workspace-be:
    - Nyissuk meg a _File / Import..._-ot
-   - Kezdjük el gépelni a textboxba, hogy _Existing projects into workspace_, így rá fog szűrni és válasszuk ki ezt
-   - Keressük meg a kicsomagolt webshop projektet (a `webshop` mappát a saját könyvtárunk alatt), OK, utána a dialogban pipáljuk be a webshop-ot (lehet, hogy by default be lesz pipálva)
+   - Kezdjük el gépelni a textboxba, hogy _Existing Maven Projects_, így rá fog szűrni és válasszuk ki ezt
+   - Keressük meg a classroom repoban tlaálható webshop projektet (a `webshop` mappát), OK, utána a dialogban pipáljuk be a webshop-ot (lehet, hogy by default be lesz pipálva)
    - Finish
 1. Tekintsük át röviden a projektet:
 

@@ -42,6 +42,12 @@ A gyakorlat végig vezetett, a gyakorlatvezető utasításai szerint haladjunk. 
 
 Emlékeztetőként a megoldások is megtalálhatóak az útmutatóban is. Előbb azonban próbáljuk magunk megoldani a feladatot!
 
+### Leadandó
+
+1. A gyakorlat során a megoldások teszteléséről készíts képernyőképet és írj 1-2 mondatos magyarázatot mindegyik feladatról!
+1. A gyakorlat végeztével egy commit készüljön az aktuális állapotról!
+1. A leadási határidőig nyugodtan kibővítheted vagy módosíthatod a megoldásodat, az akkori állapotot fogjuk értékelni.
+
 ## Tippek az Eclipse használatához
 
 - Típus (osztály, interfész, enum) keresése: Ctrl+Shift+T (Nem érdemes a Project explorer-ben a mappákat nyitogatni)
